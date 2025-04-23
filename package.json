@@ -1,0 +1,90 @@
+{
+  "name": "@digm-dev/yargonaut",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "description": "✨ Decorate your yargs CLI output with chalk styles and figlet fonts.",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "Patrick Nolen",
+    "email": "xerullian@digm.dev",
+    "github": "https://github.com/xerullian"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digm-dev/yargonaut.git"
+  },
+  "bugs": {
+    "url": "https://github.com/digm-dev/yargonaut/issues"
+  },
+  "homepage": "https://github.com/digm-dev/yargonaut#readme",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "lint": "biome check src/",
+    "lint:fix": "biome check --apply src/",
+    "fix:file": "eslint --fix $FILE && biome lint --write $FILE && biome format --write $FILE",
+    "format": "biome format src/",
+    "format:fix": "biome format --write src/",
+    "lint:neverthrow": "eslint . --rule 'neverthrow/must-use-result: error'",
+    "lint:markdown": "eslint \"**/*.md\"",
+    "lint:html": "eslint \"**/*.html\"",
+    "lint:all": "bun run lint && bun run lint:neverthrow && bun run lint:markdown && bun run lint:html",
+    "fix:all": "bun run format:fix && bun run lint:fix && bun run lint:neverthrow",
+    "test:coverage": "bun test --coverage --preload=./src/test/setup.ts",
+    "check:coverage": "bun scripts/check-coverage.js",
+    "test:coverage:check": "bun run test:coverage && bun run check:coverage",
+    "test:watch": "bun test --watch",
+    "build": "tsc -p tsconfig.build.json && bun build ./src/index.ts --outdir ./dist --target node"
+  },
+  "keywords": [
+    "yargs",
+    "figlet",
+    "text",
+    "font",
+    "ascii",
+    "ansi",
+    "locale",
+    "fun",
+    "chalk",
+    "color",
+    "terminal",
+    "cli"
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@eslint/js": "^9.0.0",
+    "@types/bun": "^1.2.10",
+    "@types/figlet": "^1.7.0",
+    "@types/node": "^22.15.2",
+    "@types/yargs": "^17.0.33",
+    "eslint": "^8.57.1",
+    "eslint-plugin-html": "^7.1.0",
+    "eslint-plugin-markdown": "^3.0.1",
+    "eslint-plugin-neverthrow-must-use": "^0.1.2",
+    "neverthrow": "^8.2.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^7.0.0",
+    "yargs": "^17.7.2"
+  },
+  "dependencies": {
+    "ansis": "^3.17.0",
+    "chalk": "^5.4.1",
+    "figlet": "^1.1.1",
+    "parent-require": "^1.0.0"
+  }
+}

@@ -1,0 +1,4 @@
+[test]
+
+# Reduce potential interference from console output
+silent = true

@@ -1,0 +1,39 @@
+# cog.toml - Configuration for Cocogitto
+branch_whitelist = ['main'] # Only bump on main
+ignore_merge_commits = true
+tag_prefix = "v"
+
+pre_bump_hooks = [
+    "echo 'bumping from {{latest|0.0.0}} to {{version|0.0.1}}'",
+    "bun ./scripts/update-versions.js {{version|0.0.1}}",
+]
+
+[changelog]
+authors = [
+    { username = "xerullian", signature = "Patrick Nolen"}
+    # Add more authors as needed
+]
+owner = "digm-dev"               # GitHub organization/user
+path = "CHANGELOG.md"             # Name of the changelog file
+remote = "github.com"             # Platform for linking
+repository = "yargonaut"          # GitHub repository name
+template = "remote"
+
+# Shareable git-hooks, can be installed using `cog install-hook --all`
+# or `cog install-hook commit-msg`
+[git_hooks.commit-msg]
+script = """#!/bin/sh
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
+# Verify the commit message format using Cocogitto
+# $1 is the path to the file containing the commit message passed by Git
+echo "[cog] Verifying commit message format..."
+cog verify --file "$1"
+echo "[cog] Commit message format OK."
+"""
+
+# Default bumping rules based on commit types (feat -> minor, fix -> patch, etc.)
+# You can define custom profiles if needed, but defaults are usually fine.
+# [bump_profiles]
+# name = "default" # Example profile name

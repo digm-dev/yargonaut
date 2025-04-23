@@ -1,0 +1,47 @@
+# GitHub Actions Workflow: Build and Publish to npm and JSR
+
+name: Publish Package
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Trigger on version tags like v1.0.0, v2.3.4, v3.0.0-beta.1
+
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Needed to check out the repository
+      id-token: write # Needed for JSR OIDC publish (using GITHUB_TOKEN)
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a current LTS version
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build package
+        run: bun run build
+
+      - name: Publish to npm
+        run: npm publish --access public # Explicitly set access again just in case
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Use the NPM_TOKEN secret
+
+      - name: Publish to JSR
+        run: bunx jsr publish
+        # JSR uses the GITHUB_TOKEN via OIDC by default in Actions for authentication
+        # Ensure the digm-dev GitHub org is linked to JSR

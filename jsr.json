@@ -1,0 +1,8 @@
+{
+  "name": "@digm-dev/yargonaut",
+  "version": "1.0.0",
+  "exports": "./src/index.ts",
+  "description": "✨ Decorate your yargs CLI output with chalk styles and figlet fonts.",
+  "repository": "https://github.com/digm-dev/yargonaut",
+  "license": "Apache-2.0"
+}
