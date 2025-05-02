@@ -42,6 +42,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Use the NPM_TOKEN secret
 
       - name: Publish to JSR
+        if: always() # Run this step even if the npm publish step fails
         run: bunx jsr publish
         # JSR uses the GITHUB_TOKEN via OIDC by default in Actions for authentication
         # Ensure the digm-dev GitHub org is linked to JSR
