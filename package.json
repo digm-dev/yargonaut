@@ -1,6 +1,6 @@
 {
   "name": "@digm-dev/yargonaut",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "Apache-2.0",
   "description": "✨ Decorate your yargs CLI output with chalk styles and figlet fonts.",
   "type": "module",
