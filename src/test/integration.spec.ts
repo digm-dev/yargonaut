@@ -4,6 +4,20 @@ import { hideBin } from 'yargs/helpers';
 import yargsFn from 'yargs/yargs';
 import { Yargonaut } from '../yargonaut';
 
+// Mock the logger to prevent console output and spy on its methods
+void mock.module('../logger', () => ({
+  logger: {
+    setLevel: mock(),
+    debug: mock(),
+    info: mock(),
+    error: mock(),
+    warn: mock(),
+    default: mock(),
+    step: mock(),
+    bold: mock(),
+  },
+}));
+
 describe('Yargonaut Integration', () => {
   let originalArgv: string[];
   let yargsInstance: any;

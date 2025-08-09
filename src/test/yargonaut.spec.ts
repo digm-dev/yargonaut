@@ -5,10 +5,12 @@ import chalk from 'chalk';
 import { hideBin } from 'yargs/helpers';
 import yargsFn from 'yargs/yargs';
 import { Yargonaut } from '../yargonaut';
+import { logger } from '../logger';
 
-// Mock the logger
+// Mock the logger to prevent console output and spy on its methods
 void mock.module('../logger', () => ({
-  default: {
+  logger: {
+    setLevel: mock(),
     debug: mock(),
     info: mock(),
     error: mock(),
@@ -94,6 +96,17 @@ describe('Yargonaut', () => {
         // Add other error keys if needed
       });
       expect(mockUpdateLocale).toHaveBeenCalledWith(expectedPayload);
+    });
+  });
+
+  describe('logLevel method', () => {
+    it('should call logger.setLevel with the provided level', () => {
+      const result = yargonaut.logLevel('silent');
+      expect(result).toBe(yargonaut); // Ensure it's chainable
+
+      // Verify logger.setLevel was called correctly
+      expect(logger.setLevel).toHaveBeenCalledTimes(1);
+      expect(logger.setLevel).toHaveBeenCalledWith('silent');
     });
   });
 
