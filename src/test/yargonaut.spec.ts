@@ -4,8 +4,8 @@ import { afterEach, beforeEach, describe, expect, it, mock, spyOn } from 'bun:te
 import chalk from 'chalk';
 import { hideBin } from 'yargs/helpers';
 import yargsFn from 'yargs/yargs';
-import { Yargonaut } from '../yargonaut';
 import { logger } from '../logger';
+import { Yargonaut } from '../yargonaut';
 
 // Mock the logger to prevent console output and spy on its methods
 void mock.module('../logger', () => ({

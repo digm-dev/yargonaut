@@ -1,5 +1,5 @@
 import { Result } from 'neverthrow';
-import { logger, LogLevel } from './logger';
+import { type LogLevel, logger } from './logger';
 
 import chalk from 'chalk';
 import figlet, { type Fonts, type Options } from 'figlet';

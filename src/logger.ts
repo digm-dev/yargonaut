@@ -68,7 +68,8 @@ function createLogger() {
 
     // biome-ignore lint/suspicious/noExplicitAny: This is a logger
     default: (...messages: any[]): void => {
-      if (shouldLog('info')) { // 'default' logs at 'info' level
+      if (shouldLog('info')) {
+        // 'default' logs at 'info' level
         const formattedMessage = format(...messages);
         console.log(formattedMessage);
       }
@@ -79,7 +80,8 @@ function createLogger() {
      */
     // biome-ignore lint/suspicious/noExplicitAny: This is a logger
     step: (...messages: any[]): void => {
-      if (shouldLog('info')) { // 'step' logs at 'info' level
+      if (shouldLog('info')) {
+        // 'step' logs at 'info' level
         const formattedMessage = format(...messages);
         console.log(ansis.cyanBright(`[STEP] ${formattedMessage}`));
       }
@@ -90,7 +92,8 @@ function createLogger() {
      */
     // biome-ignore lint/suspicious/noExplicitAny: This is a logger
     bold: (...messages: any[]): void => {
-      if (shouldLog('info')) { // 'bold' logs at 'info' level
+      if (shouldLog('info')) {
+        // 'bold' logs at 'info' level
         const formattedMessage = format(...messages);
         console.log(ansis.bold(formattedMessage));
       }

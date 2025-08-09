@@ -12,7 +12,7 @@ const originalConsole = {
   // error: console.error
 };
 
-// --- Store original process.exit --- 
+// --- Store original process.exit ---
 const originalProcessExit = process.exit;
 
 // Replace console methods with no-op functions during tests
@@ -21,19 +21,19 @@ if (process.env.NODE_ENV === 'test' || process.env.BUN_ENV === 'test') {
   console.log = () => {};
   console.info = () => {};
   console.debug = () => {};
-  
+
   // Only silence warnings if explicitly requested
   if (process.env.SILENCE_WARNINGS === 'true') {
     console.warn = () => {};
   }
-  
+
   // --- Mock process.exit to prevent tests stopping prematurely ---
   process.exit = mock((code?: number) => {
     // Log the attempt to exit, but don't actually exit
     // Use originalConsole.warn to ensure it's visible even if console.warn is silenced
     originalConsole.warn(`Intercepted process.exit with code: ${code ?? 'unknown'}`);
   }) as never;
-  
+
   // Error logs are kept for debugging purposes
 }
 
