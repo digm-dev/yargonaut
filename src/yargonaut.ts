@@ -1,5 +1,5 @@
 import { Result } from 'neverthrow';
-import logger from './logger';
+import { logger, LogLevel } from './logger';
 
 import chalk from 'chalk';
 import figlet, { type Fonts, type Options } from 'figlet';
@@ -149,6 +149,16 @@ export class Yargonaut {
     this.#defaultFont = defaultFigletFont;
 
     logger.info('Yargonaut initialized successfully.');
+  }
+
+  /**
+   * Sets the logging level for Yargonaut's internal logger.
+   * @param level The desired log level.
+   * @returns The Yargonaut instance for chaining.
+   */
+  logLevel(level: LogLevel): this {
+    logger.setLevel(level);
+    return this;
   }
 
   /**
